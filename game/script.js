@@ -1,53 +1,59 @@
-// 1. GAME SETUP
+// --- INITIAL STATE ---
 const basket = document.querySelector("#basket");
-let basketX = window.innerWidth / 2; // Start basket in the middle
+const scoreboard = document.querySelector("#scoreboard");
+let basketX = window.innerWidth / 2;
 let score = 0;
 
-// 2. MOVE THE BASKET (Event Listener)
+// --- BASKET MOVEMENT ---
 window.addEventListener("keydown", (event) => {
+    // Boundary checks to keep basket on screen
     if (event.key === "ArrowLeft" && basketX > 0) {
-        basketX -= 25;
+        basketX -= 30;
     } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 100) {
-        basketX += 25;
+        basketX += 30;
     }
-    // Update visual position
+    
+    // Update the visual position
     basket.style.left = basketX + "px";
 });
 
-// 3. THE HORSE "FACTORY" (Function to spawn one horse)
+// --- HORSE SPAWNING FACTORY ---
 function spawnHorse() {
     const horse = document.createElement("img");
-    horse.src = "./image/horse_icon.png"; 
+    horse.src = "horse icon.png"; // Must match your GitHub filename exactly
     horse.className = "falling-horse";
     
-    // Random horizontal start
-    let horseX = Math.floor(Math.random() * (window.innerWidth - 50));
+    // Randomize starting X position
+    let horseX = Math.floor(Math.random() * (window.innerWidth - 60));
     horse.style.left = horseX + "px";
     
     document.body.appendChild(horse);
 
-    // Individual gravity for this specific horse
-    let horseY = -50;
+    let horseY = -100; // Start off-screen
+    
+    // --- INDIVIDUAL GRAVITY LOOP ---
     const fallTimer = setInterval(() => {
-        horseY += 5; // Gravity speed
+        horseY += 5; // Speed of gravity
         horse.style.top = horseY + "px";
 
-        // SIMPLE COLLISION CHECK (Logic)
-        // Check if horse Y is near basket Y AND horse X is near basket X
-        if (horseY > window.innerHeight - 100 && Math.abs(horseX - basketX) < 60) {
+        // COLLISION DETECTION (Logic check)
+        // Checks if horse is at basket height AND horizontally aligned
+        const basketTop = window.innerHeight - 120; 
+        if (horseY > basketTop && Math.abs(horseX - basketX) < 70) {
             score++;
-            console.log("Score: " + score);
-            clearInterval(fallTimer);
-            horse.remove();
+            scoreboard.innerText = "Score: " + score;
+            clearInterval(fallTimer); // Stop the timer for this horse
+            horse.remove(); // Remove the horse from the screen
         }
 
-        // CLEANUP (If missed)
+        // CLEANUP (If player misses)
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
         }
-    }, 20);
+    }, 20); // 50 updates per second
 }
 
-// 4. THE GAME LOOP (Spawn a new horse every 1.5 seconds)
-setInterval(spawnHorse, 1500);
+// --- START SPAWNING HORSES ---
+// Spawns a new horse every 1.2 seconds
+setInterval(spawnHorse, 1200);
