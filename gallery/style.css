@@ -14,10 +14,3 @@
   transition: transform 0.5s, filter 0.5s;
   filter: blur(4px) opacity(0.5); /* Default state: blurred */
 }
-
-/* The "Selected" state */
-.image-card.active {
-  filter: blur(0) opacity(1);
-  transform: scale(1.2);
-  z-index: 10;
-}
