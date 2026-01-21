@@ -1,0 +1,23 @@
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  height: 100vh;
+  scroll-snap-type: y mandatory; /* Locks scroll to images */
+  gap: 50px;
+  padding: 50vh 0; /* Allows first and last images to center */
+}
+
+.image-card {
+  scroll-snap-align: center;
+  transition: transform 0.5s, filter 0.5s;
+  filter: blur(4px) opacity(0.5); /* Default state: blurred */
+}
+
+/* The "Selected" state */
+.image-card.active {
+  filter: blur(0) opacity(1);
+  transform: scale(1.2);
+  z-index: 10;
+}
