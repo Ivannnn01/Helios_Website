@@ -3,6 +3,7 @@ const basket = document.querySelector("#basket");
 const scoreboard = document.querySelector("#scoreboard");
 let basketX = window.innerWidth / 2;
 let score = 0;
+let lives = 5;
 
 // --- BASKET MOVEMENT ---
 window.addEventListener("keydown", (event) => {
@@ -50,6 +51,7 @@ function spawnHorse() {
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
+            lives -= 1
         }
     }, 20); // 50 updates per second
 }
