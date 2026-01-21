@@ -17,7 +17,7 @@ window.addEventListener("keydown", (event) => {
 // 3. THE HORSE "FACTORY" (Function to spawn one horse)
 function spawnHorse() {
     const horse = document.createElement("img");
-    horse.src = "horse.avif"; 
+    horse.src = "image/horse icon.png"; 
     horse.className = "falling-horse";
     
     // Random horizontal start
