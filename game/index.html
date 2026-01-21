@@ -4,19 +4,23 @@
     <title>My Basket Game</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        .falling-horse {
+            position: absolute;
+            width: 60px; /* Give the horses a size! */
+            top: -50px;
+        }
         #basket {
             position: absolute;
             bottom: 20px;
             left: 50%;
-            width: 80px; /* Adjust based on your PNG size */
-            transform: translateX(-50%); /* Centers the basket on the mouse */
-            transition: transform 0.1s ease-out; /* Makes movement feel smooth */
-              }
+            width: 100px; /* Make sure this is large enough to see */
+            /* Remove the transform line */
+        }
     </style>
 </head>
 <body>
     <h1>Catch the Objects!</h1>
-    <div id="basket"></div>
+    <img src="image/basket.png" id="basket" alt="basket">
 
     <script src="script.js"></script>
 </body>
