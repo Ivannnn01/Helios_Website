@@ -1,101 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Debug Basket Game</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden; /* Stops the screen from bouncing */
-            background: skyblue;
-            font-family: sans-serif;
-        }
-
-        #basket {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            width: 80px;
-            height: 80px;
-            background: brown; /* A brown square if image fails */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            border-radius: 10px;
-        }
-
-        .falling-horse {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            font-size: 40px;
-        }
-
-        #score-board {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Horse Catcher Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="game-container">
+        <div id="scoreboard">Score: 0</div>
+        
+        <img id="basket" src="basketicon.png" alt="Basket">
+    </div>
 
-    <div id="score-board">Score: 0</div>
-    <div id="basket">🧺</div> <script>
-        // 1. SETUP
-        const basket = document.querySelector("#basket");
-        const scoreBoard = document.querySelector("#score-board");
-        let basketX = window.innerWidth / 2;
-        let score = 0;
-
-        // Start the basket in the right place
-        basket.style.left = basketX + "px";
-
-        // 2. MOVE THE BASKET
-        window.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowLeft" && basketX > 0) {
-                basketX -= 40;
-            } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 80) {
-                basketX += 40;
-            }
-            basket.style.left = basketX + "px";
-        });
-
-        // 3. SPAWN HORSES
-        function spawnHorse() {
-            const horse = document.createElement("div");
-            horse.className = "falling-horse";
-            horse.innerText = "🐎"; // Emoji horse
-            
-            let horseX = Math.floor(Math.random() * (window.innerWidth - 50));
-            horse.style.left = horseX + "px";
-            document.body.appendChild(horse);
-
-            let horseY = -50;
-            const fallTimer = setInterval(() => {
-                horseY += 5;
-                horse.style.top = horseY + "px";
-
-                // COLLISION
-                if (horseY > window.innerHeight - 100 && Math.abs(horseX - basketX) < 60) {
-                    score++;
-                    scoreBoard.innerText = "Score: " + score;
-                    clearInterval(fallTimer);
-                    horse.remove();
-                }
-
-                // CLEANUP
-                if (horseY > window.innerHeight) {
-                    clearInterval(fallTimer);
-                    horse.remove();
-                }
-            }, 20);
-        }
-
-        setInterval(spawnHorse, 1500);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
