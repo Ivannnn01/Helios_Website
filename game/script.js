@@ -26,11 +26,11 @@ function spawnHorse() {
     horse.className = "falling-horse";
     
     // 1. Randomize X
-    let horseX = Math.floor(Math.random() * (window.innerWidth - 60));
+    let horseX = Math.floor(Math.random() * (window.innerWidth - 320));
     horse.style.left = horseX + "px";
     
     // 2. SET POSITION BEFORE APPENDING (Prevents blinking)
-    let horseY = -100; 
+    let horseY = -350; 
     horse.style.top = horseY + "px";
 
     document.body.appendChild(horse);
@@ -42,8 +42,8 @@ function spawnHorse() {
 
         // COLLISION DETECTION (Logic check)
         // Checks if horse is at basket height AND horizontally aligned
-        const basketTop = window.innerHeight - 120; 
-        if (horseY > basketTop && Math.abs(horseX - basketX) < 70) {
+        const basketTop = window.innerHeight - 200; 
+        if (horseY > basketTop && Math.abs(horseX - basketX) < 180) {
             score++;
             scoreboard.innerText = "Score: " + score;
             clearInterval(fallTimer); // Stop the timer for this horse
