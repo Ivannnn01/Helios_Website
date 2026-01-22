@@ -27,7 +27,7 @@ body {
 #basket {
     position: absolute;
     bottom: 20px;
-    width: 180px; /* Adjust based on your preference */
+    width: 480px; /* Adjust based on your preference */
     height: auto;
     image-rendering: pixelated; /* Keeps your pixel art sharp */
     transition: left 0.1s ease-out; /* Makes movement feel smoother */
@@ -35,7 +35,7 @@ body {
 
 .falling-horse {
     position: absolute;
-    width: 120px;
+    width: 320px;
     height: auto;
     image-rendering: pixelated;
     display: block;
