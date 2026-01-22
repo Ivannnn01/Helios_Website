@@ -7,6 +7,42 @@ let lives = 5;
 
 basket.style.left = basketX + "px";
 
+
+const leftBtn = document.querySelector("#left-btn");
+const rightBtn = document.querySelector("#right-btn");
+
+// Function to handle the actual movement
+function moveLeft() {
+    if (basketX > 0) {
+        basketX -= 40;
+        basket.style.left = basketX + "px";
+    }
+}
+
+function moveRight() {
+    if (basketX < window.innerWidth - 180) {
+        basketX += 40;
+        basket.style.left = basketX + "px";
+    }
+}
+
+// Mobile Touch Listeners
+leftBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // Prevents zooming/scrolling
+    moveLeft();
+});
+
+rightBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveRight();
+});
+
+// Keep your existing Keydown listener but use the functions
+window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") moveLeft();
+    if (event.key === "ArrowRight") moveRight();
+});
+
 // --- BASKET MOVEMENT ---
 window.addEventListener("keydown", (event) => {
     const step = 40;
