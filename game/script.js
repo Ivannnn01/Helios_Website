@@ -72,7 +72,7 @@ function spawnHorse() {
             scoreboard.innerText = "Score: " + score;
             
             if (score % 5 === 0) {
-                speedMultiplier += 0.1
+                speedMultiplier += 0.2
                 scoreboard.style.color = "gold";
                 setTimeout(() => scoreboard.style.color = "white", 500);
 
