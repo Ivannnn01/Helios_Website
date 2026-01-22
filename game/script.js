@@ -76,11 +76,16 @@ function spawnHorse() {
                 scoreboard.style.color = "gold";
                 setTimeout(() => scoreboard.style.color = "white", 500);
 
-                if (speedMultiplier >=1.1) {    //Change to 1.1 first to test, revert back to 1.5 after testing
-                    // Add a small random horizontal shift each frame
-                    // Higher difficulty could increase this 'drift'
-                    drift += 1
-                    horseX += drift;
+            if (speedMultiplier >= 1.1) {
+                // Apply a small random wobble based on current drift level
+                let frameDrift = (Math.random() - 0.5) * drift; 
+                horseX += frameDrift;
+
+            // Keep horse inside screen boundaries
+                if (horseX < 0) horseX = 0;
+                if (horseX > window.innerWidth - 120) horseX = window.innerWidth - 120;
+                horse.style.left = horseX + "px";
+            }
 
 // Keep horse from drifting off-screen
 if (horseX < 0) horseX = 0;
