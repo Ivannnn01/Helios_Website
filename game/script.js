@@ -1,21 +1,20 @@
 // --- INITIAL STATE ---
 const basket = document.querySelector("#basket");
 const scoreboard = document.querySelector("#scoreboard");
-const liveboard = document.querySelector("#lives")
-let basketX = window.innerWidth / 2;
+const liveboard = document.querySelector("#lives");
+let basketX = window.innerWidth / 2 - 240; // Center the large basket initially
 let score = 0;
 let lives = 5;
 
 // --- BASKET MOVEMENT ---
 window.addEventListener("keydown", (event) => {
-    // Boundary checks to keep basket on screen
+    // 480 is your basket width. This keeps it inside the screen.
     if (event.key === "ArrowLeft" && basketX > 0) {
-        basketX -= 30;
-    } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 100) {
-        basketX += 30;
+        basketX -= 50; // Increased speed for big sprites
+    } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 480) {
+        basketX += 50;
     }
     
-    // Update the visual position
     basket.style.left = basketX + "px";
 });
 
@@ -25,43 +24,46 @@ function spawnHorse() {
     horse.src = "horseicon.png";
     horse.className = "falling-horse";
     
-    // 1. Randomize X
+    // Randomize X while keeping the 320px horse on screen
     let horseX = Math.floor(Math.random() * (window.innerWidth - 320));
-    horse.style.left = horseX + "px";
+    let horseY = -350; // Start off-screen
     
-    // 2. SET POSITION BEFORE APPENDING (Prevents blinking)
-    let horseY = -350; 
+    horse.style.left = horseX + "px";
     horse.style.top = horseY + "px";
 
     document.body.appendChild(horse);
     
-    // --- INDIVIDUAL GRAVITY LOOP ---
     const fallTimer = setInterval(() => {
-        horseY += 5; // Speed of gravity
+        horseY += 8; // Slightly faster fall for large sprites
         horse.style.top = horseY + "px";
 
-        // COLLISION DETECTION (Logic check)
-        // Checks if horse is at basket height AND horizontally aligned
+        // --- COLLISION DETECTION ---
         const basketTop = window.innerHeight - 200; 
-        if (horseY > basketTop && Math.abs(horseX - basketX) < 180) {
+        
+        // horizontalOffset checks the distance between the left sides
+        // 180 is a good "hit zone" for a 480px basket vs 320px horse
+        const horizontalOffset = Math.abs(horseX - (basketX + 80)); 
+
+        if (horseY > basketTop && horizontalOffset < 150) {
             score++;
             scoreboard.innerText = "Score: " + score;
-            clearInterval(fallTimer); // Stop the timer for this horse
-            horse.remove(); // Remove the horse from the screen
+            clearInterval(fallTimer);
+            horse.remove();
         }
 
-        // CLEANUP (If player misses)
+        // CLEANUP
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
-            console.log(lives);
             lives--;
-            liveboard.innerText = "Lives: "+ lives;
+            liveboard.innerText = "Lives: " + lives;
+            
+            if (lives <= 0) {
+                alert("Game Over! Final Score: " + score);
+                location.reload(); // Restarts the game
+            }
         }
-
-    }, 20); // 50 updates per second
+    }, 20);
 }
 
-// --- START SPAWNING HORSES ---
-// Spawns a new horse every 1.2 seconds
 setInterval(spawnHorse, 1200);
