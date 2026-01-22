@@ -54,7 +54,12 @@ function spawnHorse() {
             horse.remove();
             console.log(lives);
             lives--;
-            liveboard.innerText = "Live: "+ lives;
+            liveboard.innerText = "Lives: "+ lives;
+        }
+
+        if (lives === 0) {
+            console.log(score)
+            gamePaused = true
         }
     }, 20); // 50 updates per second
 }
