@@ -3,6 +3,8 @@ body {
     overflow: hidden;
     background-color: #87CEEB;
     font-family: Arial, sans-serif;
+    /* Prevents gray box highlight on mobile taps */
+    -webkit-tap-highlight-color: transparent;
 }
 
 #scoreboard, #lives {
@@ -13,55 +15,61 @@ body {
     color: white;
     z-index: 10;
 }
-
 #scoreboard { left: 20px; }
 #lives { right: 20px; }
 
 #basket {
     position: absolute;
     bottom: 5px;
-    width: 180px; /* Reduced Size */
+    width: 180px;
     height: auto;
     image-rendering: pixelated;
-    transition: left 0.1s ease-out;
     z-index: 5;
+    /* Removed transition for snappier real-time movement */
 }
 
 .falling-horse {
     position: absolute;
-    width: 120px; /* Reduced Size */
+    width: 120px;
     height: auto;
     image-rendering: pixelated;
     z-index: 5;
 }
 
-
-#mobile-controls {
+/* Mobile Button Styling */
+#mobile-ui {
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 30px;
     box-sizing: border-box;
-    z-index: 20; /* Above the basket and horses */
+    z-index: 100;
+    pointer-events: none; /* Allows clicks to pass through container */
 }
 
-#mobile-controls button {
+.ctrl-btn {
+    pointer-events: auto; /* Buttons themselves stay clickable */
     width: 80px;
     height: 80px;
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent */
-    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    border: 3px solid white;
     border-radius: 50%;
-    font-size: 30px;
     color: white;
-    user-select: none; /* Prevents selecting text while tapping */
-    -webkit-tap-highlight-color: transparent; /* Removes blue highlight on mobile */
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
 }
 
-/* Hide buttons on desktop/large screens */
+.ctrl-btn:active {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0.9);
+}
+
+/* Hide buttons on desktop */
 @media (min-width: 768px) {
-    #mobile-controls {
-        display: none;
-    }
+    #mobile-ui { display: none; }
 }
