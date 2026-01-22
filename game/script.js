@@ -22,16 +22,16 @@ window.addEventListener("keydown", (event) => {
 // --- HORSE SPAWNING FACTORY ---
 function spawnHorse() {
     const horse = document.createElement("img");
-    horse.src = "horseicon.png"; // Must match your GitHub filename exactly
+    horse.src = "horseicon.png";
     horse.className = "falling-horse";
     
-    // Randomize starting X position
+    // 1. Randomize X
     let horseX = Math.floor(Math.random() * (window.innerWidth - 60));
     horse.style.left = horseX + "px";
     
-    document.body.appendChild(horse);
-
-    let horseY = -100; // Start off-screen
+    // 2. SET POSITION BEFORE APPENDING (Prevents blinking)
+    let horseY = -100; 
+    horse.style.top = horseY + "px";
     
     // --- INDIVIDUAL GRAVITY LOOP ---
     const fallTimer = setInterval(() => {
