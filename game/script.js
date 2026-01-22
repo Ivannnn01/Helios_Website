@@ -8,6 +8,8 @@ let score = 0;
 let lives = 5;
 let keys = {}; // Stores which buttons are currently pressed
 let speedMultiplier = 1;   //increase difficulty
+let drift = 5
+
 
 basket.style.left = basketX + "px";
 
@@ -71,11 +73,23 @@ function spawnHorse() {
             
             if (score % 5 === 0) {
                 speedMultiplier += 0.1
-                alert("testing1")
                 scoreboard.style.color = "gold";
                 setTimeout(() => scoreboard.style.color = "white", 500);
 
+                if (speedMultiplier >=1.1) {    //Change to 1.1 first to test, revert back to 1.5 after testing
+                    // Add a small random horizontal shift each frame
+                    // Higher difficulty could increase this 'drift'
+                    let drift += 1
+                    horseX += drift;
+
+// Keep horse from drifting off-screen
+if (horseX < 0) horseX = 0;
+if (horseX > window.innerWidth - 120) horseX = window.innerWidth - 120;
+
+horse.style.left = horseX + "px";
+
                 }
+            
 
             clearInterval(fallTimer);
             horse.remove();
