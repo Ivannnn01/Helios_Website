@@ -7,6 +7,7 @@ let basketX = window.innerWidth / 2 - 90;
 let score = 0;
 let lives = 5;
 let keys = {}; // Stores which buttons are currently pressed
+let speedMultiplier = 1;   //increase difficulty
 
 basket.style.left = basketX + "px";
 
@@ -55,7 +56,7 @@ function spawnHorse() {
     document.body.appendChild(horse);
 
     const fallTimer = setInterval(() => {
-        horseY += 6; 
+        horseY += 6*speedMultplier; 
         horse.style.top = horseY + "px";
 
         // COLLISION DETECTION
@@ -69,6 +70,12 @@ function spawnHorse() {
             scoreboard.innerText = "Score: " + score;
             clearInterval(fallTimer);
             horse.remove();
+        }
+
+        if (score % 5 === 0) {
+            speedMultiplier += 0.1
+            alert("testing1")
+
         }
 
         // CLEANUP
