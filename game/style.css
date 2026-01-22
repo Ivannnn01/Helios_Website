@@ -38,4 +38,5 @@ body {
     width: 60px;
     height: auto;
     image-rendering: pixelated;
+    z-index: 5;
 }
