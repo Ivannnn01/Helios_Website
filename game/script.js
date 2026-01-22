@@ -1,59 +1,45 @@
+// --- INITIAL STATE ---
 const basket = document.querySelector("#basket");
 const scoreboard = document.querySelector("#scoreboard");
 const liveboard = document.querySelector("#lives");
-let basketX = window.innerWidth / 2 - 90; // Centered for 180px width
+
+let basketX = window.innerWidth / 2 - 90;
 let score = 0;
 let lives = 5;
+let keys = {}; // Stores which buttons are currently pressed
 
 basket.style.left = basketX + "px";
 
+// --- MOBILE BUTTON SETUP (Galaxy Quest Style) ---
+const setupBtn = (id, keyName) => {
+    const el = document.getElementById(id);
+    el.addEventListener("touchstart", (e) => { e.preventDefault(); keys[keyName] = true; });
+    el.addEventListener("touchend", (e) => { e.preventDefault(); keys[keyName] = false; });
+    // Support for mouse testing
+    el.addEventListener("mousedown", () => keys[keyName] = true);
+    el.addEventListener("mouseup", () => keys[keyName] = false);
+};
 
-const leftBtn = document.querySelector("#left-btn");
-const rightBtn = document.querySelector("#right-btn");
+setupBtn("leftBtn", "ArrowLeft");
+setupBtn("rightBtn", "ArrowRight");
 
-// Function to handle the actual movement
-function moveLeft() {
-    if (basketX > 0) {
-        basketX -= 40;
-        basket.style.left = basketX + "px";
+// Keyboard Listeners
+window.addEventListener("keydown", (e) => keys[e.key] = true);
+window.addEventListener("keyup", (e) => keys[e.key] = false);
+
+// --- SMOOTH MOVEMENT LOOP ---
+function updateMovement() {
+    const speed = 8;
+    if (keys["ArrowLeft"] && basketX > 0) {
+        basketX -= speed;
     }
-}
-
-function moveRight() {
-    if (basketX < window.innerWidth - 180) {
-        basketX += 40;
-        basket.style.left = basketX + "px";
-    }
-}
-
-// Mobile Touch Listeners
-leftBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault(); // Prevents zooming/scrolling
-    moveLeft();
-});
-
-rightBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveRight();
-});
-
-// Keep your existing Keydown listener but use the functions
-window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") moveLeft();
-    if (event.key === "ArrowRight") moveRight();
-});
-
-// --- BASKET MOVEMENT ---
-window.addEventListener("keydown", (event) => {
-    const step = 40;
-    // Stops the 180px basket at the edge
-    if (event.key === "ArrowLeft" && basketX > 0) {
-        basketX -= step;
-    } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 180) {
-        basketX += step;
+    if (keys["ArrowRight"] && basketX < window.innerWidth - 180) {
+        basketX += speed;
     }
     basket.style.left = basketX + "px";
-});
+    requestAnimationFrame(updateMovement);
+}
+requestAnimationFrame(updateMovement);
 
 // --- HORSE SPAWNING ---
 function spawnHorse() {
@@ -61,7 +47,6 @@ function spawnHorse() {
     horse.src = "horseicon.png";
     horse.className = "falling-horse";
     
-    // Randomize X within screen bounds for a 120px horse
     let horseX = Math.floor(Math.random() * (window.innerWidth - 120));
     let horseY = -150; 
 
@@ -73,18 +58,12 @@ function spawnHorse() {
         horseY += 6; 
         horse.style.top = horseY + "px";
 
-        // --- COLLISION DETECTION ---
-        // Height check: Lowered for the basket position
+        // COLLISION DETECTION
         const basketTop = window.innerHeight - 120; 
-        
-        // Horizontal distance check
-        // (horseX + 60) is the center of the horse
-        // (basketX + 90) is the center of the basket
         const horseCenter = horseX + 60;
         const basketCenter = basketX + 90;
         const dist = Math.abs(horseCenter - basketCenter);
 
-        // A distance of < 70 is a fair catch for these sizes
         if (horseY > basketTop && dist < 70) {
             score++;
             scoreboard.innerText = "Score: " + score;
@@ -92,6 +71,7 @@ function spawnHorse() {
             horse.remove();
         }
 
+        // CLEANUP
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
