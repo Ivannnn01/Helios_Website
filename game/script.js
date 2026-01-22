@@ -1,6 +1,7 @@
 // --- INITIAL STATE ---
 const basket = document.querySelector("#basket");
 const scoreboard = document.querySelector("#scoreboard");
+const liveboard = document.querySelector("#lives")
 let basketX = window.innerWidth / 2;
 let score = 0;
 let lives = 5;
@@ -34,6 +35,7 @@ function spawnHorse() {
     
     // --- INDIVIDUAL GRAVITY LOOP ---
     const fallTimer = setInterval(() => {
+        var lives = 5
         horseY += 5; // Speed of gravity
         horse.style.top = horseY + "px";
 
@@ -51,7 +53,8 @@ function spawnHorse() {
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
-            lives -= 1
+            lives--;
+            liveboard.innerText = "Live: "+ lives;
         }
     }, 20); // 50 updates per second
 }
