@@ -32,6 +32,8 @@ function spawnHorse() {
     // 2. SET POSITION BEFORE APPENDING (Prevents blinking)
     let horseY = -100; 
     horse.style.top = horseY + "px";
+
+    document.body.appendChild(horse);
     
     // --- INDIVIDUAL GRAVITY LOOP ---
     const fallTimer = setInterval(() => {
