@@ -79,7 +79,7 @@ function spawnHorse() {
                 if (speedMultiplier >=1.1) {    //Change to 1.1 first to test, revert back to 1.5 after testing
                     // Add a small random horizontal shift each frame
                     // Higher difficulty could increase this 'drift'
-                    let drift += 1
+                    drift += 1
                     horseX += drift;
 
 // Keep horse from drifting off-screen
