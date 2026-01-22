@@ -1,21 +1,19 @@
-// --- INITIAL STATE ---
 const basket = document.querySelector("#basket");
 const scoreboard = document.querySelector("#scoreboard");
 const liveboard = document.querySelector("#lives");
-let basketX = window.innerWidth / 2 - 130; // Center the 260px basket
+let basketX = window.innerWidth / 2 - 90; // Centered for 180px width
 let score = 0;
 let lives = 5;
 
-// Set initial basket position
 basket.style.left = basketX + "px";
 
 // --- BASKET MOVEMENT ---
 window.addEventListener("keydown", (event) => {
     const step = 40;
-    // Boundary check: screen width minus the 260px basket width
+    // Stops the 180px basket at the edge
     if (event.key === "ArrowLeft" && basketX > 0) {
         basketX -= step;
-    } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 260) {
+    } else if (event.key === "ArrowRight" && basketX < window.innerWidth - 180) {
         basketX += step;
     }
     basket.style.left = basketX + "px";
@@ -27,37 +25,37 @@ function spawnHorse() {
     horse.src = "horseicon.png";
     horse.className = "falling-horse";
     
-    // Ensure 180px horse stays within screen bounds
-    let horseX = Math.floor(Math.random() * (window.innerWidth - 180));
-    let horseY = -200; // Start off-screen
+    // Randomize X within screen bounds for a 120px horse
+    let horseX = Math.floor(Math.random() * (window.innerWidth - 120));
+    let horseY = -150; 
 
     horse.style.left = horseX + "px";
     horse.style.top = horseY + "px";
     document.body.appendChild(horse);
 
     const fallTimer = setInterval(() => {
-        horseY += 6; // Gravity speed
+        horseY += 6; 
         horse.style.top = horseY + "px";
 
-        // --- UPDATED COLLISION DETECTION ---
-        // Checks if horse is at the height of the basket (lowered)
-        const basketTop = window.innerHeight - 150; 
+        // --- COLLISION DETECTION ---
+        // Height check: Lowered for the basket position
+        const basketTop = window.innerHeight - 120; 
         
-        // Horizontal math: Check if centers are roughly aligned
-        // Comparing the left side of the horse (horseX) 
-        // to the center area of the basket (basketX)
-        const horseCenter = horseX + 90;
-        const basketCenter = basketX + 130;
+        // Horizontal distance check
+        // (horseX + 60) is the center of the horse
+        // (basketX + 90) is the center of the basket
+        const horseCenter = horseX + 60;
+        const basketCenter = basketX + 90;
         const dist = Math.abs(horseCenter - basketCenter);
 
-        if (horseY > basketTop && dist < 100) {
+        // A distance of < 70 is a fair catch for these sizes
+        if (horseY > basketTop && dist < 70) {
             score++;
             scoreboard.innerText = "Score: " + score;
             clearInterval(fallTimer);
             horse.remove();
         }
 
-        // CLEANUP (If player misses)
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
@@ -72,5 +70,4 @@ function spawnHorse() {
     }, 20);
 }
 
-// Spawn rate
 setInterval(spawnHorse, 1200);
