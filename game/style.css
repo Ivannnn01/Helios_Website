@@ -1,3 +1,41 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #87CEEB;
+    font-family: Arial, sans-serif;
+}
+
+#scoreboard, #lives {
+    position: absolute;
+    top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    z-index: 10;
+}
+
+#scoreboard { left: 20px; }
+#lives { right: 20px; }
+
+#basket {
+    position: absolute;
+    bottom: 5px;
+    width: 180px; /* Reduced Size */
+    height: auto;
+    image-rendering: pixelated;
+    transition: left 0.1s ease-out;
+    z-index: 5;
+}
+
+.falling-horse {
+    position: absolute;
+    width: 120px; /* Reduced Size */
+    height: auto;
+    image-rendering: pixelated;
+    z-index: 5;
+}
+
+
 #mobile-controls {
     position: absolute;
     bottom: 20px;
