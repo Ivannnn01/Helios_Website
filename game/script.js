@@ -56,7 +56,7 @@ function spawnHorse() {
     document.body.appendChild(horse);
 
     const fallTimer = setInterval(() => {
-        horseY += 6*speedMultplier; 
+        horseY += 6*speedMultiplier; 
         horse.style.top = horseY + "px";
 
         // COLLISION DETECTION
@@ -68,16 +68,18 @@ function spawnHorse() {
         if (horseY > basketTop && dist < 70) {
             score++;
             scoreboard.innerText = "Score: " + score;
+            
+            if (score % 5 === 0) {
+                speedMultiplier += 0.1
+                alert("testing1")
+                scoreboard.style.color = "gold";
+                setTimeout(() => scoreboard.style.color = "white", 500);
+
+                }
+
             clearInterval(fallTimer);
             horse.remove();
         }
-
-        if (score % 5 === 0) {
-            speedMultiplier += 0.1
-            alert("testing1")
-
-        }
-
         // CLEANUP
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
