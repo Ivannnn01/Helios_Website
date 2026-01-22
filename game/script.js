@@ -53,6 +53,7 @@ function spawnHorse() {
         if (horseY > window.innerHeight) {
             clearInterval(fallTimer);
             horse.remove();
+            console.log(lives);
             lives--;
             liveboard.innerText = "Live: "+ lives;
         }
