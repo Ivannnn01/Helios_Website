@@ -38,5 +38,6 @@ body {
     width: 60px;
     height: auto;
     image-rendering: pixelated;
+    display: block;
     z-index: 5;
 }
