@@ -22,7 +22,7 @@ window.addEventListener("keydown", (event) => {
 // --- HORSE SPAWNING FACTORY ---
 function spawnHorse() {
     const horse = document.createElement("img");
-    horse.src = "./image/horse_icon.png"; // Must match your GitHub filename exactly
+    horse.src = "image/horseicon.png"; // Must match your GitHub filename exactly
     horse.className = "falling-horse";
     
     // Randomize starting X position
