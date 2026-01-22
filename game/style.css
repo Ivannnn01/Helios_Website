@@ -39,5 +39,5 @@ body {
     height: auto;
     image-rendering: pixelated;
     display: block;
-    z-index: 5px;
+    z-index: 5;
 }
