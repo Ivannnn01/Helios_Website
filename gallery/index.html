@@ -30,31 +30,30 @@
                 <p class="caption">Coastal Escape</p>
             </div>
 
+
         </div>
     </main>
 
     <script>
-        // Use Intersection Observer as a high-performance scroll listener
         const polaroids = document.querySelectorAll('.polaroid');
 
         const observerOptions = {
-            root: null, // use the viewport
-            threshold: 0.7 // 70% of the image must be visible to trigger
+            root: null,
+            threshold: 0.7
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Add the 'active' class to animate and unblur
+
                     entry.target.classList.add('active');
                 } else {
-                    // Remove the class when it leaves the center
+
                     entry.target.classList.remove('active');
                 }
             });
         }, observerOptions);
 
-        // Tell the observer to watch each polaroid
         polaroids.forEach(p => observer.observe(p));
     </script>
 </body>
