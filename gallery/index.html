@@ -7,54 +7,75 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+	<header class="top-banner">
+        <div class="dropdown" id="menuDropdown">
+            <button class="dropbtn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="dropdown-content">
+                <a href="index.html">Main Homepage</a>
+                <a href="game.html">Play Game</a>
+            </div>
+        </div>
+        <div class="banner-title">GALLERY</div>
+    </header>
+
     <main class="gallery-wrapper">
         <div class="polaroid-stack">
-            
             <div class="polaroid">
                 <img src="https://picsum.photos/id/10/400/400" alt="Photo 1">
                 <p class="caption">Forest Mornings</p>
             </div>
-
             <div class="polaroid">
                 <img src="https://picsum.photos/id/20/400/400" alt="Photo 2">
                 <p class="caption">Workspace Vibes</p>
             </div>
-
             <div class="polaroid">
                 <img src="https://picsum.photos/id/30/400/400" alt="Photo 3">
                 <p class="caption">City Architecture</p>
             </div>
-
             <div class="polaroid">
                 <img src="https://picsum.photos/id/40/400/400" alt="Photo 4">
                 <p class="caption">Coastal Escape</p>
             </div>
-
-
         </div>
     </main>
 
+	
     <script>
+	
+		function toggleDropdown() {
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
+		window.onclick = function(event) {
+			if (!event.target.closest('.menu-container')) {
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				for (var i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
         const polaroids = document.querySelectorAll('.polaroid');
-
-        const observerOptions = {
-            root: null,
-            threshold: 0.7
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-
                     entry.target.classList.add('active');
                 } else {
-
                     entry.target.classList.remove('active');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.7 });
 
         polaroids.forEach(p => observer.observe(p));
+
+        function toggleMenu() {
+            document.getElementById("side-menu").classList.toggle("open");
+        }
     </script>
 </body>
 </html>
