@@ -57,7 +57,7 @@ body {
     pointer-events: auto; /* Buttons themselves stay clickable */
     width: 80px;
     height: 80px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 0, 0, 0.3);
     border: 3px solid white;
     border-radius: 50%;
     color: red;
