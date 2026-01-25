@@ -7,7 +7,7 @@ html {
 body {
     margin: 0;
     overflow: hidden;
-    background-color: #87CEEB;
+    background-color: white;
     font-family: Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
@@ -17,7 +17,7 @@ body {
     top: 70px;
     font-size: 24px;
     font-weight: bold;
-    color: white;
+    color: black;
     z-index: 10;
 }
 #scoreboard { left: 20px; }
