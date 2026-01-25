@@ -112,7 +112,7 @@ body {
     background: white;
     padding: 24px 24px 50px 24px;
 	width: 90%; 
-    max-width: 360px;
+    max-width: 300px;
     margin: 45vh auto; 
     scroll-snap-align: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
