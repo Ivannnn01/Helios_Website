@@ -1,3 +1,7 @@
+:root {
+    --header-height: 60px;
+}
+
 body {
     margin: 0;
     overflow: hidden;
@@ -8,7 +12,7 @@ body {
 
 #scoreboard, #lives {
     position: absolute;
-    top: 40px;
+    top: 70px;
     font-size: 24px;
     font-weight: bold;
     color: white;
@@ -74,18 +78,17 @@ body {
 
 
 
-
-
 .top-banner {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     height: var(--header-height);
     background-color: red;
     display: flex;
     align-items: center;
     padding: 0 20px;
-    z-index: 1000;
+    z-index: 2000;
     box-sizing: border-box;
 }
 
