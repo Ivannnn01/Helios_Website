@@ -11,6 +11,9 @@ body {
     font-family: Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
     background-image: url("helios_logo_no_bg.png");
+    background-repeat: no-repeat;
+    background-position: centre;
+    background-size: contain;
 }
 
 #scoreboard, #lives {
