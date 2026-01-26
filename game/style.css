@@ -10,6 +10,7 @@ body {
     background-color: white;
     font-family: Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
+    background-image: url("game/helios_logo_no_bg.png");
 }
 
 #scoreboard, #lives {
