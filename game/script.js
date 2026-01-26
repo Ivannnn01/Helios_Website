@@ -74,7 +74,7 @@ function spawnHorse() {
             if (score % 5 === 0) {
                 speedMultiplier += 0.2
                 scoreboard.style.color = "gold";
-                setTimeout(() => scoreboard.style.color = "white", 500);
+                setTimeout(() => scoreboard.style.color = "black", 500);
 
             if (speedMultiplier >= 1.1) {
                 // Apply a small random wobble based on current drift level
