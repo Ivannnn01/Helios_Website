@@ -91,7 +91,7 @@ body {
     position: absolute;
     width: 100%;
     background: white;
-    padding: 12px 12px 35px 12px;
+    padding: 12px 12px 30px 12px;
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
     box-sizing: border-box;
     --random-tilt: 0deg; 
@@ -119,20 +119,20 @@ body {
 .polaroid.active {
     opacity: 1;
     z-index: 20;
-    transform: translateX(0) scale(1) rotate(var(--random-tilt));
+    transform: translateX(0) scale(1.2) rotate(var(--random-tilt));
     pointer-events: auto;
 }
 
 .polaroid.prev {
     opacity: 0.6;
     z-index: 10;
-    transform: translateX(-115%) scale(0.75) translateZ(-150px) rotate(var(--random-tilt));
+    transform: translateX(-115%) scale(0.70) translateZ(-150px) rotate(var(--random-tilt));
 }
 
 .polaroid.next {
     opacity: 0.6;
     z-index: 10;
-    transform: translateX(115%) scale(0.75) translateZ(-150px) rotate(var(--random-tilt));
+    transform: translateX(115%) scale(0.70) translateZ(-150px) rotate(var(--random-tilt));
 }
 
 .polaroid.far-left {
