@@ -126,23 +126,23 @@ body {
 .polaroid.prev {
     opacity: 0.6;
     z-index: 10;
-    transform: translateX(-85%) scale(0.8) translateZ(-150px) rotate(var(--random-tilt));
+    transform: translateX(-100%) scale(0.8) translateZ(-150px) rotate(var(--random-tilt));
 }
 
 .polaroid.next {
     opacity: 0.6;
     z-index: 10;
-    transform: translateX(85%) scale(0.8) translateZ(-150px) rotate(var(--random-tilt));
+    transform: translateX(100%) scale(0.8) translateZ(-150px) rotate(var(--random-tilt));
 }
 
 .polaroid.far-left {
     opacity: 0;
     z-index: 1;
-    transform: translateX(-150%) scale(0.7) translateZ(-330px) rotate(var(--random-tilt));
+    transform: translateX(-200%) scale(0.7) translateZ(-330px) rotate(var(--random-tilt));
 }
 
 .polaroid.far-right {
     opacity: 0;
     z-index: 1;
-    transform: translateX(150%) scale(0.7) translateZ(-330px) rotate(var(--random-tilt));
+    transform: translateX(200%) scale(0.7) translateZ(-330px) rotate(var(--random-tilt));
 }
