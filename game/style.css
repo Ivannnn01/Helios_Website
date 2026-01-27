@@ -7,7 +7,6 @@ html {
 body {
     margin: 0;
     overflow: hidden;
-    background-color: white;
     font-family: Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
     background-image: url("helios_logo_no_bg.png");
