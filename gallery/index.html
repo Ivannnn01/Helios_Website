@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polaroid Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Helios Gallery </title>
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-	<header class="top-banner">
-        <div class="dropdown" id="menuDropdown">
-            <button class="dropbtn" onclick="toggleMobileMenu()">
+    <header class="top-banner">
+        <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <div class="dropdown-content">
+            <div class="dropdown-content" id="myDropdown">
                 <a href="https://ivannnn01.github.io/Helios_Website/">Main Homepage</a>
                 <a href="https://ivannnn01.github.io/Helios_Website/game">Play Game</a>
             </div>
@@ -22,8 +22,8 @@
         <div class="banner-title">GALLERY</div>
     </header>
 
-    <main class="gallery-wrapper">
-        <div class="polaroid-stack">
+    <main class="gallery-container" id="galleryContainer">
+        <div class="polaroid-track">
             <div class="polaroid">
                 <img src="https://picsum.photos/id/10/400/400" alt="Photo 1">
                 <p class="caption">Forest Mornings</p>
@@ -40,42 +40,75 @@
                 <img src="https://picsum.photos/id/40/400/400" alt="Photo 4">
                 <p class="caption">Coastal Escape</p>
             </div>
+            <div class="polaroid">
+                <img src="https://picsum.photos/id/50/400/400" alt="Photo 5">
+                <p class="caption">Mountain Peaks</p>
+            </div>
         </div>
     </main>
 
-	
     <script>
-	
-		function toggleDropdown() {
-			document.getElementById("myDropdown").classList.toggle("show");
-		}
-		window.onclick = function(event) {
-			if (!event.target.closest('.menu-container')) {
-				var dropdowns = document.getElementsByClassName("dropdown-content");
-				for (var i = 0; i < dropdowns.length; i++) {
-					var openDropdown = dropdowns[i];
-					if (openDropdown.classList.contains('show')) {
-						openDropdown.classList.remove('show');
-					}
-				}
-			}
-		}
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        let currentIndex = 0;
         const polaroids = document.querySelectorAll('.polaroid');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
+        const total = polaroids.length;
+        const container = document.getElementById('galleryContainer');
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+
+        function initRandomTilt() {
+            polaroids.forEach(p => {
+
+                const randomRotate = (Math.random() * 5 - 3).toFixed(2);
+                p.style.setProperty('--random-tilt', `${randomRotate}deg`);
+            });
+        }
+
+        function updateGallery() {
+            polaroids.forEach((p, index) => {
+                p.classList.remove('active', 'prev', 'next', 'far-left', 'far-right');
+
+                let offset = index - currentIndex;
+                if (offset > total / 2) offset -= total;
+                if (offset < -total / 2) offset += total;
+
+                if (offset === 0) {
+                    p.classList.add('active');
+                } else if (offset === -1) {
+                    p.classList.add('prev');
+                } else if (offset === 1) {
+                    p.classList.add('next');
+                } else if (offset < -1) {
+                    p.classList.add('far-left');
+                } else if (offset > 1) {
+                    p.classList.add('far-right');
                 }
             });
-        }, { threshold: 0.7 });
-
-        polaroids.forEach(p => observer.observe(p));
-
-        function toggleMenu() {
-            document.getElementById("side-menu").classList.toggle("open");
         }
+
+        function moveSlide(direction) {
+            currentIndex = (currentIndex + direction + total) % total;
+            updateGallery();
+        }
+
+        container.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        container.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const swipeThreshold = 40;
+            if (touchStartX - touchEndX > swipeThreshold) moveSlide(1);
+            if (touchEndX - touchStartX > swipeThreshold) moveSlide(-1);
+        }, {passive: true});
+
+        initRandomTilt();
+        updateGallery();
     </script>
 </body>
 </html>
