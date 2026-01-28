@@ -83,7 +83,7 @@ body {
 .polaroid-track {
     position: relative;
     width: 60vw; 
-    height: 340px;
+    height: 45vh;
     transform-style: preserve-3d;
 }
 
